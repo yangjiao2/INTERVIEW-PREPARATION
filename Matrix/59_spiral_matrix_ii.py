@@ -1,3 +1,5 @@
+# Time:  O(m * n)
+# Space: O(1)
 
 class Solution:
     def generateMatrix(self, n: int) -> List[List[int]]:
