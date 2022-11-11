@@ -1,7 +1,6 @@
 Matrix:
 
-4 directions
-n = len(matrix)
+4 directions, n = len(matrix)
 
 initiation:
 [[-1 ] * n for _ in range(n)]
