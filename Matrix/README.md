@@ -1,6 +1,6 @@
 # Matrix:
 
-4 directions, n = len(matrix)
+4 directions, n = len(matrix), m * n corresponds to r, c range
 
 ### initiation:
 [[-1 ] * n for _ in range(n)]
@@ -12,3 +12,4 @@
 ### stopping condition:
 1. assigned value in array / matrix
 2. top < bottom, left < right
+3. linked list is done (need to add last value for while loop check on head.next != None)
