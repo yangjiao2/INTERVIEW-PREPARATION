@@ -14,13 +14,11 @@ class Solution:
         direction_lst = [(0,1), (1, 0), (0, -1), (-1, 0)]
         direction = direction_lst[d_index]
         while (head.next != None):
-            print (r, c, res)
             res[r][c] = head.val
             head = head.next
             if (r+ direction[0] < 0 or  r+ direction[0] >= m or c + direction[1] < 0 or c + direction[1] >= n  or  res[r+ direction[0]][c + direction[1]] != -1):
                 d_index = (d_index + 1)%4
                 direction = direction_lst[d_index]
-            print ('..', direction)
             r, c = r+direction[0] , c+direction[1]
         res[r][c] = head.val 
         return res
