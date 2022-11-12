@@ -14,9 +14,10 @@ Resources:
 
 | Category | # | Title | Solution | Basic idea (One line) |
 | -- |---| ----- | -------- | --------------------- |
-| | 1 | [Two Sum](https://leetcode.com/problems/two-sum/) | [Python](https://github.com/qiyuangong/leetcode/blob/master/python/001_Two_Sum.py) [Java](https://github.com/qiyuangong/leetcode/blob/master/java/001_Two_Sum.java) | 1. Hash O(n) and O(n) space.<br>2. Sort and search with two points O(n) and O(1) space. |
-| | 54 | [Spiral matrix](https://leetcode.com/problems/spiral-matrix/) |  1. similar to 59 <br> 2. matrix -> array assignment <br> 3. easier for loop traversal with boundary updating from outer to inner matrix  
-| | 59 | [Spiral matrix II](https://leetcode.com/problems/spiral-matrix-ii/) |  1. Set direction with coordinates <br> 2. Loop n*n with boundary set and matrix availability verification
+| Matrix traversal | 1 | [Two Sum](https://leetcode.com/problems/two-sum/) | [Python](https://github.com/qiyuangong/leetcode/blob/master/python/001_Two_Sum.py) [Java](https://github.com/qiyuangong/leetcode/blob/master/java/001_Two_Sum.java) | 1. Hash O(n) and O(n) space.<br>2. Sort and search with two points O(n) and O(1) space. |
+| Matrix traversal| 54 | [Spiral matrix](https://leetcode.com/problems/spiral-matrix/) | [Py](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/Matrix/54_spiral_matrix.py) | 1. similar to 59 <br> 2. matrix -> array assignment <br> 3. easier for loop traversal with boundary updating from outer to inner matrix  
+| Matrix traversal| 59 | [Spiral matrix II](https://leetcode.com/problems/spiral-matrix-ii/) | [Py](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/Matrix/59_spiral_matrix_ii.py) | 1. Set direction with coordinates <br> 2. Loop n*n with boundary check and matrix availability verification
+|Matrix traversal | 2326 | [Spiral matrix II](https://leetcode.com/problems/spiral-matrix-iv/) | [Py](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/Matrix/2326_spiral_matrix_iv.py) | 1. Set direction with coordinates, check boundary and result slot is unset <br> 2. while loop check for head.next != None and assign the lastest value after last run
 
 
 
