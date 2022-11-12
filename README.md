@@ -19,5 +19,7 @@ Resources:
 | Matrix traversal| 59 | [Spiral matrix II](https://leetcode.com/problems/spiral-matrix-ii/) | [Py](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/Matrix/59_spiral_matrix_ii.py) | 1. Set direction with coordinates <br> 2. Loop n*n with boundary check and matrix availability verification
 |Matrix traversal | 2326 | [Spiral matrix II](https://leetcode.com/problems/spiral-matrix-iv/) | [Py](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/Matrix/2326_spiral_matrix_iv.py) | 1. Set direction with coordinates, check boundary and result slot is unset <br> 2. while loop check for head.next != None and assign the lastest value after last run
 
+| Interval | 1419 | [Spiral matrix II](https://leetcode.com/problems/minimum-number-of-frogs-croaking/) | [Py](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/Interval/1419_minimum_number_of_frogs_croaking.py) | 1. Since only whole sentence represents a frog, +1 when first char shows, return -1 when previous char is not appeared <br> 2. corner case: needs to handle uncompleted sentence
+
 
 
