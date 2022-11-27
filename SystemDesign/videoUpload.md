@@ -18,9 +18,10 @@
 
 ## video encoding
 
-1. once start, udpate to metadata database
+1. once start, udpate to *metadata database*
 2. processing queue will encode videos in containers (format: avi, mov, mp4, dash)
 3. compressing algorithm: H.264, vp9
-4. at the same time, generate thumbnail / other info -> which also updates in cache
+4. *parallel processing*: inpection, video transcoding (pixel transcoding), generate thumbnail / other info -> which also updates in cache, add water mark
 5. store video in S3 (example)
+
 
