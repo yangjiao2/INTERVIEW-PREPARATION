@@ -55,6 +55,6 @@ mobile use sync on demand for reduce bandwidth usage.
 
 - requirement: indexes of chunks + versioning
 
-- refer to [database.md]()
+- refer to [database.md](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/SystemDesign/database.md)
 
 
