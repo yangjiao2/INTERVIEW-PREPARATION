@@ -42,12 +42,22 @@ Note
 chunk size depends on I/O on cloud storage, network bandwitdth, average file size
 
 
-## synchronisation 
+## synchronisation (server)
 
 - HTTP long polling: Server keeps the request open and waits for the new changes. Server sends HTTP response upon client changes made.
 
 Note:
 mobile use sync on demand for reduce bandwidth usage.
+
+
+## synchronisation (client)
+
+- hash: calculate a hash (SHA-256) to check if chunk is updated
+- message queue (e,g: RabbitMQ, Apache Kafka): send asynchronous messages to message queue, so that request will 
+
+1) update metadata db
+2) send messages to all subscribed client
+
 
 
 
@@ -56,5 +66,7 @@ mobile use sync on demand for reduce bandwidth usage.
 - requirement: indexes of chunks + versioning
 
 - refer to [database.md](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/SystemDesign/database.md)
+
+use wrapper and cache for relational database
 
 
