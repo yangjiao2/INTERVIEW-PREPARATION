@@ -1,0 +1,1 @@
+factory pattern, inheritance, thread safe, singleton, etc。

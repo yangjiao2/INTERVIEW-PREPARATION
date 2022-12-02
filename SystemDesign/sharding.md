@@ -14,6 +14,8 @@ availability(logical independence), scalability, security (store data in differe
 - improve performance -> faster response time: balancing the workload, locate shards in nearby physical location
 
 
+- expands the storage capacity
+
 
 ## limitations
 
@@ -23,3 +25,14 @@ availability(logical independence), scalability, security (store data in differe
 
 - reliability: 
 -> to solve: at least 2 “live” copies of each shard 
+
+
+## types
+
+- range based
+
+- hash based
+
+- entity / relationship based (e.g: user and payment)
+
+- geography based (e.g: country)
