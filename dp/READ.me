@@ -1,0 +1,13 @@
+
+steps:
+
+1. initialize and sort (greedy)
+
+2. loop through possible answers
+    1) get eligible value 
+    - check with result (prune if already not in answer boundary, e.g: min, max step )
+    - check if arrangement is duplicated (prune since order does not matter, e.g: sum of worker)
+    2) append possible answer
+    3) dfs
+    4) remove possible answer 
+    5) add new branch

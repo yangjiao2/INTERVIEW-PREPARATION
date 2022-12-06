@@ -2,6 +2,7 @@
 
 [link1](https://charlieinden.github.io/System-Design/2018-06-03_System-Design--Chapter-2--Sharding-484960c18f6.html)
 
+[link2](https://www.linode.com/docs/guides/sharded-database/)
 
 ## purpose
 

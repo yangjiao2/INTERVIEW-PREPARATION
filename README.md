@@ -20,6 +20,8 @@ Resources:
 |Matrix traversal | 2326 | [Spiral matrix II](https://leetcode.com/problems/spiral-matrix-iv/) | [Py](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/Matrix/2326_spiral_matrix_iv.py) | 1. Set direction with coordinates, check boundary and result slot is unset <br> 2. while loop check for head.next != None and assign the lastest value after last run
 | Interval | 1419 | [Minimum Number of Frogs Croaking](https://leetcode.com/problems/minimum-number-of-frogs-croaking/) | [Py](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/Interval/1419_minimum_number_of_frogs_croaking.py) | 1. Since only whole sentence represents a frog, +1 when first char shows, return -1 when previous char is not appeared <br> 2. Handle corner case: needs to remove uncompleted sentence 
 | Interval | 1419 | [Divide Intervals Into Minimum Number of Groups](https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/) | [Py](https://github.com/Yjiao917/2022-SWE-INTERVIEW-PREPARATION/blob/main/Interval/2406_divide_into_minimum_number_of_groups.py) | 1. Method 1: minheap to push every element that needs to be counted in a loop <br> 2. Method 2: using line sweep to have cur watermarking the rightmost element within the for loop of the sorted collection
+| Dp | [1829](https://leetcode.com/problems/minimum-number-of-work-sessions-to-finish-the-tasks/) | [Py]() |  
 
 
+| Hashset | 129 | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/description/) | [Py](128_longest_consecutive_sequence) | use hashset to check if in set, then if not visited (x - 1 not in set), loop over to x + i to find longest and update size |
 

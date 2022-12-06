@@ -1,5 +1,5 @@
 
-Faster?
+## Faster
 
 1. divde a specialized databases in seperate db to handle request
 
@@ -8,15 +8,26 @@ example:
 - Analytics or full-text search can be handled by specialized services or a data warehouse. 
 
 
-Read heavy?
+## Read heavy
 
-- Replication
+- Replication: reliability and robustness, spreads out the queries 
 
-- load balancing
+- [caching](caching.md): speed up request
 
-- geo-located query routing
+- [load balancing](load-balance.md)
+
+- [reduce latency](latency.md) by caching: geo-located query routing (CDN)
 
 
-scalability + availability?
 
-- sharding (Query overhead for accessing multiple shards)
+## Scalability + availability
+
+- [sharding](sharding.md) (Query overhead for accessing multiple shards)
+
+- Service level objectives (SLO) and service level agreements (SLA)
+
+
+## Reliability / availability
+
+- keepalived: auto re-routing
+

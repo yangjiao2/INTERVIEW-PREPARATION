@@ -7,11 +7,14 @@
 2. Horizontal Scaling: add machine 
 3. network layer
 4. application layer
-    1) [DNS load balance](#dns-load-balance)
-    2) [server load balance](#server-load-balance)
-    3) [client load balance](#client-load-balance)
+    1) [DNS load balance](#dns-load-balance): DNS parse domain to different ip addresses. (If we have multiple data centers, DNS will find the geographically closest data center)
+    2) [server load balance](#server-load-balance): connection pool
+    3) [database load balance]: partition / [sharding](sharding.md)
+    4) [client load balance](#client-load-balance)
 
- 
+
+![load-balancer](pics/load-balancer.png)
+
 ## purpose
 1. distribute among cluster
 
@@ -35,27 +38,27 @@ Encryption: Handling encrypted connections such as Transport Layer Security (TLS
 
 
 
-# layer 4 load-balance
+## layer 4 load-balance
 use  load balancer’s IP address as destination IP address  in the packet header
 
 "Layer 4 load balancing equires less computation than more sophisticated load balancing methods (such as Layer 7), but CPU and memory are now sufficiently fast and cheap that the performance advantage for Layer 4 load balancing has become negligible or irrelevant in most situations"
 
 
-# dns-load-balance
+## dns-load-balance
 'authoritative nameserver' to distribute among real server
 
 Pro: easy, faster
 Cons:  no detection for server failure.  does not check for server and network outages.
 
 
-# server-load-balance
+## server-load-balance
 
 algorithms: 
 Round robin (LRU), Least Connections,  Least Response Time Method,  URL Hash (Consistent hashing),  etc
 
 
-# client-load-balance
-Cross Site Scripting": need to enable CORS to allow requests (domain changes)
+## client-load-balance
+Cross Site Scripting: need to enable CORS to allow requests (domain changes)
 
 major issue: security reasons
 
