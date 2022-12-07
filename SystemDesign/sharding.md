@@ -4,6 +4,10 @@
 
 [link2](https://www.linode.com/docs/guides/sharded-database/)
 
+
+The shards are distributed across the different servers in the cluster. Each shard has the same database schema and table definitions. This maintains consistency across the shards. 
+
+
 ## purpose
 
 availability(logical independence), scalability, security (store data in different partitions)
@@ -27,6 +31,9 @@ availability(logical independence), scalability, security (store data in differe
 - reliability: 
 -> to solve: at least 2 “live” copies of each shard 
 
+## cons
+
+- Increase complexity: failure cause inconsistency and hard to maintain (upgrade, backup)
 
 ## types
 
