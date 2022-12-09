@@ -12,12 +12,14 @@ example:
 
 - multiple replicas of data stored (cache) 
 
+3. Async jobs
+
 
 ## Read heavy
 
 - Replication: reliability and robustness, spreads out the queries 
 
-- [caching](caching.md): speed up request
+- [caching](caching.md): speed up request (cache-aside or read-through cache)
 
 - [load balancing](load-balance.md)
 
@@ -39,6 +41,8 @@ example:
 - (Netflix) memcache with write all, read one nearst & available 
 
 ![ev-cache](pics/EV-Cache.jpg)
+
+
 
 ## Multimedia processing
 

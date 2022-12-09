@@ -29,6 +29,8 @@ Load Balancer (LB)
 
 Security and Permissions
 
+---
+
 系统设计基本方法 SNAKE 原则 by Qingyuan Feng
 系统设计有四大要素
 第一，是要满足一个需求即Requirements；
