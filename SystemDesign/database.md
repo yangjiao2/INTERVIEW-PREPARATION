@@ -9,7 +9,7 @@
 
 - MYSQL
 
- 1\ INDEX
+ 1. INDEX
 
  #### hash
 
