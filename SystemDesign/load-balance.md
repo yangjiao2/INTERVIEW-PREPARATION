@@ -1,30 +1,39 @@
 ## reference
 
-[link1](https://charlieinden.github.io/System-Design/2018-06-09_System-Design--Chapter-3--Load-Balancing-e1c89148e37.html)
+[link (concept)](https://charlieinden.github.io/System-Design/2018-06-09_System-Design--Chapter-3--Load-Balancing-e1c89148e37.html)
 
+[link (features)](https://www.enjoyalgorithms.com/blog/load-balancers-in-system-design) [🔗](#features)
 
 1. Vertical Scaling: add hardware capacity (memory (RAM), processor (CPU), and network connections)
 2. Horizontal Scaling: add machine 
 3. network layer
 4. application layer
-    1) [DNS load balance](#dns-load-balance): DNS parse domain to different ip addresses. (If we have multiple data centers, DNS will find the geographically closest data center)
+    1) [DNS load balance (scale system horizontally)](#dns-load-balance): DNS parse domain to different ip addresses. (If we have multiple data centers, DNS will find the geographically closest data center)
     2) [server load balance](#server-load-balance): connection pool
-    3) [database load balance]: partition / [sharding](sharding.md)
+    3) [database load balance]: *** Partition Horizontally by  partition key*** [sharding](sharding.md)
     4) [client load balance](#client-load-balance)
 
 
 ![load-balancer](pics/load-balancer.png)
 
-## purpose
+## Purpose
 1. distribute among cluster
 
 2. avoid fail-over
 
+## Location
 
-## features 
+client -> server
+
+server -> application server
+
+application -> cache server
+
+cache -> db server
+
+## Features 
 
 Caching: An application-layer load balancer may offer the ability to cache responses
-
 
 Autoscaling: Starting up and shutting down resources in response to demand conditions.
 
@@ -54,7 +63,7 @@ Cons:  no detection for server failure.  does not check for server and network o
 ## server-load-balance
 
 algorithms: 
-Round robin (LRU), Least Connections,  Least Response Time Method,  URL Hash (Consistent hashing),  etc
+Round robin (LRU), Least Connections,  Least Response Time Method, URL Hash (Consistent hashing),  etc
 
 
 ## client-load-balance

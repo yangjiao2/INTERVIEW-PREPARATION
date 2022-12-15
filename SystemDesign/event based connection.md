@@ -1,5 +1,16 @@
+[Long polling, WebSockets, Server-Sent Events (SSE))](https://dev.to/karanpratapsingh/system-design-long-polling-websockets-server-sent-events-sse-1hip)
 
-## techinique
+## Summary
+
+| Category |  | Title | Solution | Basic idea (One line) |
+| -- |---| ----- | -------- | 
+| Long polling |
+| WebSockets | 
+| Server-Sent Events (SSE) |
+| HTTP streaming | 
+
+
+## Techinique
 
 - HTTP long polling (***half-duplex***): The server holds a client connection open to deliver a response when new data becomes available or the connection timeout threshold is reached.
 
@@ -28,10 +39,13 @@ Upgrade: websocket
 4) security: `Sec-WebSocket-Key` and `Sec-WebSocket-Accept` attached on request
 
 
-![websockets.webp](SystemDesign/pics/websockets.webp)
+![websockets.webp](pics/websockets.webp)
 
 - MQTT: publish-subscribe messaging protoco for streaming data between devices with limited CPU power and/or battery life, such as IoT devices; built on the TCP/IP protocol
 
 - SSE: An open, lightweight, subscribe-only protocol for event-driven data streams. 
+
+
+
 
 

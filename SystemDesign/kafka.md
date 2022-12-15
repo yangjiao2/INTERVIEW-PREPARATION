@@ -1,11 +1,11 @@
 [link](https://aws.plainenglish.io/apache-kafka-system-architecture-cc74e7d47904)
 
-Kafka: distributed, publish/subscribe messaging system
+Kafka: distributed, publish/subscribe messaging system, high throughput `100k per second` & low latency `(ms)`
 
 
 ## features
 
-1. message persistence in `O(1)` time complexity
+1. message persistence in `O(1)` time complexity - "log" data structure (only appends)
 
 2. high throughput `100k per second`
 
@@ -13,7 +13,18 @@ Kafka: distributed, publish/subscribe messaging system
 
 4. support online horizontal expansion
 
-5. `ZooKeeper` coordinate and forward the requests 
+5. `ZooKeeper` coordinate and forward the requests with leader-follower concept ( asynchronously ) 
+
+6. Topic & consumer: many-to-many
+
+NOTE:
+
+Kafka only provides a ***total order*** over messages within a partition, ***not between different partitions in a topic***
+
+
+in other words,
+
+Due to parition (within a topic): For a consumer, messages coming from a partition would always be in order but ordering of messages coming from a topic is not guaranteed. 
 
 
 ## funtions
@@ -50,8 +61,6 @@ Kafka: distributed, publish/subscribe messaging system
 9) Zookeeper: maintain metadata for all brokers, topics, partitions, and replicas, notify broker fail, store offset of consumer
 
 ## Usage Scenario
-
-
 
 Log Collection
 

@@ -1,6 +1,6 @@
 [Business logic](https://www.geeksforgeeks.org/system-design-netflix-a-complete-architecture/) [🔗](#business-logic)
 
-[Ram and SSD](https://netflixtechblog.com/evolution-of-application-data-caching-from-ram-to-ssd-a33d6fa7a690) [🔗](#ram-and-ssd)
+[RAM and SSDs for caching](https://netflixtechblog.com/evolution-of-application-data-caching-from-ram-to-ssd-a33d6fa7a690) [🔗](#ram-and-ssd)
 
 # Business logic
 
@@ -58,3 +58,4 @@ Elastic Search: data visualization, customer support, and for some error detecti
 combine and do ranking on the fly
 
 # RAM and SSD
+store the hot data in RAM and cold data on disk
