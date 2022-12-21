@@ -53,7 +53,7 @@ use  load balancer’s IP address as destination IP address  in the packet heade
 "Layer 4 load balancing equires less computation than more sophisticated load balancing methods (such as Layer 7), but CPU and memory are now sufficiently fast and cheap that the performance advantage for Layer 4 load balancing has become negligible or irrelevant in most situations"
 
 
-## dns-load-balance
+## DNS load-balance
 'authoritative nameserver' to distribute among real server
 
 Pro: easy, faster
@@ -79,3 +79,13 @@ major issue: security reasons
 - [Azure Load Balancing](https://azure.microsoft.com/en-in/services/load-balancer)
 - [GCP Load Balancing](https://cloud.google.com/load-balancing)
 - [Nginx](https://www.nginx.com)
+
+
+
+### load balancer vs reverse proxy
+
+- SSL termination - Decrypt incoming requests and encrypt server responses so backend servers do not have to perform these potentially expensive operations
+
+- Compression - Compress server responses
+
+- Caching - Return the response for cached requests

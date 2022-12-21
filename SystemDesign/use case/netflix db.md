@@ -12,7 +12,8 @@ Video title/labels/categories
 
 Freshness
 
-#  Database
+
+
 ## Billing
 
 MySQL (for ACID compliance)

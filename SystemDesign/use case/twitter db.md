@@ -1,5 +1,6 @@
 [link](https://www.pankajtanwar.in/blog/how-twitter-stores-500m-tweets-a-day)
 
+[link](https://www.infoq.com/presentations/Twitter-Timeline-Scalability/)
 
 ### Problem:
 
