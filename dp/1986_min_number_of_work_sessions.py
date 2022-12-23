@@ -8,34 +8,94 @@
 # https://leetcode.com/problems/minimum-number-of-work-sessions-to-finish-the-tasks/
 
 class Solution:
+    def minSessions(self, A, T):
+        A.sort(reverse = True)
+
+        if sum(A) <= T:
+            return 1
+        if min(A) == T:
+            return len(A)
+
+        k_min = sum(A) // T
+        k_max = len(A)
+
+        for k in range(k_min, k_max):
+            ks = [0] * k
+
+            def can_partition(j):
+                if j == len(A):
+                    for i in range(k):
+                        if ks[i] > T:
+                            return False
+                    return True
+                for i in range(k):
+                    if ks[i] + A[j] <= T:
+                        ks[i] += A[j]
+                        if can_partition(j + 1):
+                            return True
+                        ks[i] -= A[j]
+                return False
+
+            if can_partition(0):
+                return k
+        return len(A)
+
+class Solution:
     def minSessions(self, tasks: List[int], sessionTime: int) -> int:
         n = len(tasks)
         tasks.sort(reverse=True)
         sessions = []
-        result = [n]
-        
-        def dfs(index): 
-            if len(sessions) > result[0]: # prune 1
+        self.result = [n]
+
+        def dfs(index):
+            if len(sessions) >  self.result: # prune 1
                 return
             if index == n:
-                result[0] = len(sessions) 
+                 self.result = len(sessions)
                 return
             for i in range(len(sessions)):
                 if sessions[i] + tasks[index] <= sessionTime:  # prune 2
                     sessions[i] += tasks[index]
                     dfs(index + 1)
                     sessions[i] -= tasks[index]
+
             sessions.append(tasks[index])
             dfs(index + 1)
             sessions.pop()
-        
+
         dfs(0)
-        return result[0]
+        return  self.result
 
 
 
+class Solution:
+    def minSessions(self, tasks: List[int], sessionTime: int) -> int:
+        subsets = []
+        self.ans = len(tasks)
+
+        def func(idx):
+            if len(subsets) >= self.ans:
+                return
+
+            if idx == len(tasks):
+                self.ans = min(self.ans, len(subsets))
+                return
+
+            for i in range(len(subsets)):
+                if subsets[i] + tasks[idx] <= sessionTime:
+                    subsets[i] += tasks[idx]
+                    func(idx + 1)
+                    subsets[i] -= tasks[idx]
+
+            subsets.append(tasks[idx])
+            func(idx + 1)
+            subsets.pop()
+
+        func(0)
+        return self.ans
 
 
+#   bit mask is to use 1's to mark the sessions needs to be filled
 
 
 class Solution:
