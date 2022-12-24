@@ -2,7 +2,14 @@
 
 [link](https://www.infoq.com/presentations/Twitter-Timeline-Scalability/)
 
-### Problem:
+0. [Service](#service)
+1. [Database](#database)
+
+# Service
+![](../pics/twitter.jpg)
+
+
+# Database
 
 1. load balance is not efficient since temporal sharding will make old machines has way less traffic
 
@@ -20,11 +27,11 @@ Hadoop - Twitter uses hadoop internally for unstructured and large dataset (~100
 
 #### end to end encryption:
 - encryped any user's public key:
-    
+
     can ONLY be decryed by private key
-    
+
     can not be decrypted by same public key
 
 - encryped any user's private key:
-    
+
     can be verified by the public key

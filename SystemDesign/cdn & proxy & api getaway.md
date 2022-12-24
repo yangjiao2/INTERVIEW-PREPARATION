@@ -18,7 +18,7 @@ Features:
 
 
 Routing:
-- DNS 
+- DNS
 - reverse proxy
 
 ![](pics/reverse-poxies.png)
@@ -31,13 +31,15 @@ Routing:
 
 ### Reverse Proxy
 
+From client -> edge server + API getaway (load balancer) handles request, then reverse proxy connects to servers with evenly distribution.
+
 [link](https://www.wallarm.com/what/what-is-the-reverse-proxy)
 
 - server load balance
 - blocks access, public / private data
 - avoid DDoS gaining access (ip address exposed to reverse proxy)
-- divide load
-- SSL
+- handle SSL
+- cache
 
 ![](pics/Reverse-Proxy.jpg)
 
