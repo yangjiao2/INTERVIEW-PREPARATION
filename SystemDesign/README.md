@@ -1,23 +1,26 @@
 
+![](pics/algo.jpg)
+![](pics/general.png)
+
 ## Faster
 
 1. divde a specialized databases in seperate db to handle request
 
 example:
--  blob or file storage can be moved directly to a cloud provider such as Amazon S3. 
-- Analytics or full-text search can be handled by specialized services or a data warehouse. 
+-  blob or file storage can be moved directly to a cloud provider such as Amazon S3.
+- Analytics or full-text search can be handled by specialized services or a data warehouse.
 
 2. CDN
 - distributed servers in different geographical locations
 
-- multiple replicas of data stored (cache) 
+- multiple replicas of data stored (cache)
 
 3. Async jobs
 
 
 ## Read heavy
 
-- Replication: reliability and robustness, spreads out the queries 
+- Replication: reliability and robustness, spreads out the queries
 
 - [caching](caching.md): speed up request (cache-aside or read-through cache)
 
@@ -38,7 +41,7 @@ example:
 
 - keepalived: auto re-routing
 
-- (Netflix) memcache with write all, read one nearst & available 
+- (Netflix) memcache with write all, read one nearst & available
 
 ![ev-cache](pics/EV-Cache.jpg)
 
