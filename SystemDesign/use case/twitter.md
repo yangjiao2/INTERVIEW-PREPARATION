@@ -8,6 +8,22 @@
 # Service
 ![](../pics/twitter.jpg)
 
+[reference](https://www.codekarle.com/system-design/Twitter-system-design.html)
+
+
+![](../pics/Twitter.png)
+
+Kafka: process injected tweet, fire events to
+1) ***tweet processor + redis*** -> which will cache active user's tweet
+2) analytics & offline notification data using ***spark + hadoop***
+3) ***elastic search***
+
+Redis: cache tweet, user, trending topic info
+
+Cassandra: process incoming tweets and provide data to timeline service upon query (due to  Columnar DB with partition key, and defined query)
+
+
+
 
 # Database
 
@@ -25,7 +41,7 @@ Hadoop - Twitter uses hadoop internally for unstructured and large dataset (~100
 
 
 
-#### end to end encryption:
+### end to end encryption:
 - encryped any user's public key:
 
     can ONLY be decryed by private key

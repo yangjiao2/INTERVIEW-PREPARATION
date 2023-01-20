@@ -9,11 +9,11 @@ Kafka: distributed, publish/subscribe messaging system, high throughput `100k pe
 
 2. high throughput `100k per second`
 
-3. ensuring the sequential transmission of messages 
+3. ensuring the sequential transmission of messages
 
 4. support online horizontal expansion
 
-5. `ZooKeeper` coordinate and forward the requests with leader-follower concept ( asynchronously ) 
+5. `ZooKeeper` coordinate and forward the requests with leader-follower concept ( asynchronously )
 
 6. Topic & consumer: many-to-many
 
@@ -24,7 +24,7 @@ Kafka only provides a ***total order*** over messages within a partition, ***not
 
 in other words,
 
-Due to parition (within a topic): For a consumer, messages coming from a partition would always be in order but ordering of messages coming from a topic is not guaranteed. 
+Due to parition (within a topic): For a consumer, messages coming from a partition would always be in order but ordering of messages coming from a topic is not guaranteed.
 
 
 ## funtions
@@ -48,7 +48,7 @@ Due to parition (within a topic): For a consumer, messages coming from a partiti
     - configurations: ****acks (ack = 0 .. all = -1 ) for no number of acks required from replicas, retries, batch size, send machanism (fire and forget, sync, async)****
 
     - trade-off: consistency and throughput
- 
+
 
 7) consumer: subscribe to partition with load balance
 
@@ -71,3 +71,34 @@ User Activity Tracking
 Operational Indicators
 
 Streaming
+
+https://www.softkraft.co/apache-kafka-use-cases/
+
+1) User activity tracking
+
+"clicks, registrations, likes, time spent "
+
+LinkedIn, Coursera: serving as the data pipeline for real-time learning analytics/dashboards with Logging user activity
+
+2) Real-time data processing
+
+"raw input data is consumed from Kafka topics and then aggregated, enriched, or otherwise transformed into new topics for further consumption or follow-up processing."
+
+TikTok (ByteDance) utilizes Kafka as a data hub for the collection of events and logs
+
+3) event streams
+"Kafka Streams good for event handler. event logs, event sourcing, and stream processing"
+
+4) Centralized Data Log
+
+## compare with Redis
+
+![](pics/redis%20vs%20kafka.png)
+- Redis: It is used for various use cases such as **Session Cache, Full Page Cache (FPC), Leader Boards/Counting, Pub s/ Sub, Queues**
+
+- Apache Kafka: Kafka has various use cases such as **Messaging, Website Activity Tracking, Log Aggregation, Stream Processing, Metrics, Event Sourcing, Commit log**.
+
+
+- Redis: Redis supports ***push-based delivery*** of messages that means messages published to Redis will be delivered automatically to subscribers immediately.
+
+- Apache Kafka: Kafka supports **pull-based delivery** of messages, meaning that messages published in Kafka are never distributed directly to consumers, consumers **subscribe to topics** and ask for messages when consumers are ready to deal with them.

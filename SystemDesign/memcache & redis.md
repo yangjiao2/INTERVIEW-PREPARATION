@@ -77,3 +77,38 @@ The advantages of data structures make Redis a good choice for:
 🔹 Caching user behavior history and filtering malicious behaviors (zset, hash)
 
 🔹 Storing boolean information of extremely large data into small space. For example, login status, membership status. (bitmap)
+
+
+
+#### Other usage:
+https://www.linkedin.com/posts/alexxubyte_systemdesign-coding-interviewtips-activity-7016444408438923264-_pmB?utm_source=share&utm_medium=member_desktop
+
+🔹Session
+We can use Redis to share user session data among different services.
+
+🔹Cache
+We can use Redis to cache objects or pages, especially for hotspot data.
+
+🔹Distributed lock
+We can use a Redis string to acquire locks among distributed services.
+
+🔹Counter
+We can count how many likes or how many reads for articles.
+
+🔹Rate limiter
+We can apply a rate limiter for certain user IPs.
+
+🔹Global ID generator
+We can use Redis Int for global ID.
+
+🔹Shopping cart
+We can use Redis Hash to represent key-value pairs in a shopping cart.
+
+🔹Calculate user retention
+We can use Bitmap to represent the user login daily and calculate user retention.
+
+🔹Message queue
+We can use List for a message queue.
+
+🔹Ranking
+We can use ZSet to sort the articles.

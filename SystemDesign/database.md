@@ -1,10 +1,15 @@
 
-| relational | non-relational | note | 
+| relational | non-relational | note |
 | ----- | ------ | ---- |
-| ACID |  | ***extra configuration*** requires for achieving ACID for non-relational (Cassandra replication factor gives the consistency level) | 
-| |  scalability | requires ***sharding or master slave techniques***, more difficult for multiple DB | 
+| ACID |  | ***extra configuration*** requires for achieving ACID for non-relational (Cassandra replication factor gives the consistency level) |
+| |  scalability | requires ***sharding or master slave techniques***, more difficult for multiple DB |
 | |performance |  |
- 
+
+
+
+https://www.codekarle.com/system-design/Database-system-design.html
+
+
 
 
 - MYSQL
