@@ -8,6 +8,8 @@
 
 Redis: complex data structure (up to 1GB). Built-in high availability (Replication async), supports queue -> messaging, more operation
 
+RAM-based (120ns), IO multiplexing, single-threaded
+
 Memcache: simple key-value, high concurrency (multi-thread) -> caching relatively small and static data, such as HTML code fragments, easy scale up
 
 

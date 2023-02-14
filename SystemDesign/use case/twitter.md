@@ -11,6 +11,7 @@
 [reference](https://www.codekarle.com/system-design/Twitter-system-design.html)
 
 
+
 ![](../pics/Twitter.png)
 
 Kafka: process injected tweet, fire events to

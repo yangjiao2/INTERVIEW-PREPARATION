@@ -36,6 +36,10 @@ shard based on recency:
 
 Compressed Viewing History: A large amount of older viewing records
 
+https://netflixtechblog.com/netflixs-viewing-data-how-we-know-where-you-are-in-house-of-cards-608dd61077da
+
+
+
 
 # Logging and Event search
 Elastic Search: data visualization, customer support, and for some error detection in the system
@@ -82,3 +86,67 @@ Schema: UUID, entity id (stored in graphQL), ts, type, payload
 add new schema: add enricherm sink, announce schema in registry
 
 ![](../pics/netflix-kafka-scale.png)
+
+
+---
+
+### Open connect (CDN):
+load copy from CDN server for load rapid
+
+After hit a play button:
+content licensed is converted into a size
+switching servers at thet backend to load fastest out of 10 most closest ->
+
+
+https://workat.tech/system-design/article/best-engineering-blogs-articles-videos-system-design-tvwa05b8bzzr
+
+
+consistent hashing (location proximity):
+- avoid content shuffling
+- repeatable historical checks
+
+
+traffic:
+
+
+###  license
+Using event sourcing pattern where "event" records events and can  replay events to any point in time
+
+![](../pics/netflix-authentication.png)
+
+
+Token-Agnostic Identity (Passport)
+```
+enum Source {
+    NONE = 0;
+    COOKIE = 1;
+    COOKIE_INSECURE = 2;
+    MSL = 3;
+    PARTNER_TOKEN = 4;
+        …
+}
+enum PassportAuthenticationLevel {
+    LOW = 1; // untrusted transport
+    HIGH = 2; // secure tokens over TLS
+    HIGHEST = 3; // MSL or user credentials
+}
+```
+
+gather user/ device info, action, integrtity
+
+
+## scalability
+
+https://netflixtechblog.com/scaling-time-series-data-storage-part-i-ec2b6d44ba39
+
+https://netflixtechblog.com/scaling-time-series-data-storage-part-ii-d67939655586
+
+Previous:
+
+Cassandra with time series data, high efficient on write
+because
+Log-Structured Merge Tree,  avoids reading before writing,  groups inserts/updates
+
+
+Cluster Sharding
+ clusters sharded by type/age/level of detail
