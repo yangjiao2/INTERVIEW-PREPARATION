@@ -109,7 +109,7 @@ class Solution:
 threads (of the same process) run in a shared memory space, while processes run in separate memory spaces.
 
 
-```
+```py
 word search
 
 '''
@@ -332,7 +332,7 @@ def solution(words, note):
 # print (solution(words, note7))
 ```
 
-
+```py
 
 
 """
