@@ -27,3 +27,29 @@ Redis & Apache Cassandra (replication & storage):
 
 
 ##  consistency
+
+- **NetworkToplogyStrategy**
+- no slave / server
+- eventually consistent thus all nodes across all datacenters sees the same state only after few seconds
+
+
+-  consistency level:
+https://www.baeldung.com/cassandra-consistency-levels
+
+|  Consistency Level | |
+| -- | -- |
+| ONE | ack from one |
+| QUROM | ack from 51% or a majority of replica |
+|  LOCAL_QUORUM | ack within the same datacenter > 51%  |
+| ALL| ack from all nodes |
+
+
+❓ Strong consistency
+- W + R > RF
+examples:
+
+Given Write CL = QUORUM and Read CL = QUORUM
+
+1) If RF = 3, W = QUORUM or LOCAL_QUORUM, R = QUORUM or LOCAL_QUORUM, then W (2) + R (2) > RF (3)
+
+2) If RF = 3, W = ALL, R = ONE, then W (3) + R (1) > RF (3)

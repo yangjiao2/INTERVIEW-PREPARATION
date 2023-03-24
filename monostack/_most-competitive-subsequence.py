@@ -3,3 +3,4 @@
 # we have stack.size() - 1 in the stack,
 # there are A.size() - i can still be pushed.
 # if stack.size() - 1 + A.size() - i >= k, we can pop the stack.
+

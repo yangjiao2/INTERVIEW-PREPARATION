@@ -8,7 +8,7 @@ window.addEventListener('scroll', throttle(callback, 1000));
 
 function throttle(fn, wait) {
   var time = Date.now();
-  return function() {
+  return function () {
     if ((time + wait - Date.now()) < 0) {
       fn();
       time = Date.now();
@@ -16,54 +16,98 @@ function throttle(fn, wait) {
   }
 }
 
+const throttle = (fn, wait) => {
+  let inThrottle, lastFn, lastTime;
+  return function () {
+    const context = this,
+      args = arguments;
+    if (!inThrottle) {
+      fn.apply(context, args);
+      lastTime = Date.now();
+      inThrottle = true;
+    } else {
+      clearTimeout(lastFn);
+      lastFn = setTimeout(function () {
+        if (Date.now() - lastTime >= wait) {
+          fn.apply(context, args);
+          lastTime = Date.now();
+        }
+      }, Math.max(wait - (Date.now() - lastTime), 0));
+    }
+  };
+};
 
-function throttle(func, wait) {
-    let waiting = false;
-    return function () {
-      if (waiting) {
-        return;
-      }
 
-      waiting = true;
-      setTimeout(() => {
-        func.apply(this, arguments);
-        waiting = false;
-      }, wait);
-    };
+function throttle(fn, delay) {
+  let previous = 0;
+  let timer = null;
+
+  return function () {
+    let _this = this;
+    if (new Date() - previous > delay) {
+      clearTimeout(timer);
+      timer = null;
+      fn.apply(this, args)
+      previous = new Date();
+    } else {
+      timer = setTimeout(() => {
+        fn.apply(_this, args), delay
+      })
+    }
   }
 
-  const onScroll = throttle(() => {
-      // do something
-  }, 100);
+}
 
-  document.addEventListener('scroll', onScroll)
+
+
+function throttle(func, wait) {
+  let waiting = false;
+  return function () {
+    if (waiting) {
+      return;
+    }
+
+    waiting = true;
+    setTimeout(() => {
+      func.apply(this, arguments);
+      waiting = false;
+    }, wait);
+  };
+}
+
+
+const onScroll = throttle(() => {
+  // do something
+}, 100);
+
+document.addEventListener('scroll', onScroll)
 
 // ---------
 
 
-  const useThrottledEffect = (callback, delay, deps = []) => {
-    const lastRan = useRef(Date.now());
+const useThrottledEffect = (callback, delay, deps = []) => {
+  const lastRan = useRef(Date.now());
 
-    useEffect(() => {
-      const handler = setTimeout(function () {
-        if (Date.now() - lastRan.current >= delay) {
-          callback();
-          lastRan.current = Date.now();
-        }
-      }, delay - (Date.now() - lastRan.current));
+  useEffect(() => {
+    const handler = setTimeout(function () {
+      if (Date.now() - lastRan.current >= delay) {
+        callback();
+        lastRan.current = Date.now();
+      }
+    }, delay - (Date.now() - lastRan.current));
 
-      return () => {
-        clearTimeout(handler);
-      };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [delay, ...deps]);
-  };
+    return () => {
+      clearTimeout(handler);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [delay, ...deps]);
+};
 
 
 
-  ----
+----
 
-  import React from "react";
+import React from "react";
 import { useEffect, useState } from "react";
 import { ProfileCard, ProfileLoadingCard } from "./components/card";
 import "./app.scss";
@@ -132,3 +176,6 @@ function App() {
 }
 
 export default App;
+
+
+---

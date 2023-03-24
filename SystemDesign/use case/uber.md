@@ -14,6 +14,7 @@ Requirements:
 - reliable replication
 
 ![](../pics/uber-kafka-cluster.png)
+
 ## clusters
 async user data
 logging
@@ -36,3 +37,36 @@ For high throughput:
 Solution:
 - use 2 cluster in broker (`min.insync.replicas = 2`)
 - wait till leader come back (`unclear.leader.election = false`)
+
+
+![](../pics/uber-sys-design.png)
+
+
+https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines
+
+kafka:
+* persistent - messages are immediately written to the filesystem when they are received.
+* high throughput - 2 m qps, Kafka topic is just a sharded write-ahead log. Producers append records to these logs
+* durability: central queue for consumers, space-efficient, buffer TBs of unconsumed data
+* fault-tolerance: replicates its logs over multiple servers
+* garantee delivery: Producers get an acknowledgement back when publish, Consumers saves position in a log by committing periodically
+
+
+https://doordash.engineering/2023/02/22/how-doordash-designed-a-successful-write-heavy-scalable-and-reliable-inventory-platform/
+
+Fine tune
+
+High Scalability:
+- Frequent updates: batch upsert
+- time-to-live for fast-growing tables
+
+High Reliability
+- raw data feed upload to db
+- Retry
+- Heartbeat from worker
+
+Low Latency: time-sensitive
+- a natural primary key for query instead of auto-incrementing a primary key => multi-column primary keys. e.g: (username, post_timestamp)
+
+High Observability: detailed and historical item-level
+- processing details are passed on to a Kafka layer

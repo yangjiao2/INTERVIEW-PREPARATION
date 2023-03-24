@@ -102,3 +102,13 @@ TikTok (ByteDance) utilizes Kafka as a data hub for the collection of events and
 - Redis: Redis supports ***push-based delivery*** of messages that means messages published to Redis will be delivered automatically to subscribers immediately.
 
 - Apache Kafka: Kafka supports **pull-based delivery** of messages, meaning that messages published in Kafka are never distributed directly to consumers, consumers **subscribe to topics** and ask for messages when consumers are ready to deal with them.
+
+
+
+
+https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines
+
+kafka:
+* persistent - messages are immediately written to the filesystem when they are received.
+* high throughput - 2 m qps, Kafka topic is just a sharded write-ahead log. Producers append records to these logs
+* durability: central queue for consumers, space-efficient, buffer TBs of unconsumed data

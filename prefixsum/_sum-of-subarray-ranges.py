@@ -9,6 +9,8 @@ The previous less element of 4 is 3.
 There is no previous less element for 3.
 
 
+    x = 3, s = [3]
+    x = 7, while loop, j = 3, k = s[-1]
     def subArrayRanges(self, A0):
         res = 0
         inf = float('inf')

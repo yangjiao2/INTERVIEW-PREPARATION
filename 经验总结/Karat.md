@@ -504,23 +504,6 @@ print(similar(line2_1, line2_2, synonyms2_2) )
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def highest(courses):
 # Excellent   E   5
 # Great       G   4

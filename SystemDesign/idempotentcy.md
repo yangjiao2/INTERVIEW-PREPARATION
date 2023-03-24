@@ -41,3 +41,10 @@ Consistency means the transaction leaves the database in the valid state.
 Isolation means no two transactions mingle or interfere with each other. The result of two transactions executed in parallel would be same as sequential execution.
 
 Durability means the changes of the transaction are saved. It remains there even if power is turned off.
+
+
+
+
+
+Shopify:
+order is in sequential with unique UUID
