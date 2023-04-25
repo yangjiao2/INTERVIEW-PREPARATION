@@ -57,30 +57,29 @@ print (sol()) #[2,6,4,8,10,9,3] => [1, 6]
 
 
 
-def findUnsortedSubarray(nums) -> int:
-    if nums is None:
-        return 0
-    if len(nums) == 0 or len(nums) == 1:
-        return 0
+class Solution(object):
+    def findUnsortedSubarray(self, nums):
+        if len(nums) <2:
+            return 0
 
-    max_num = float('-inf')
-    end = -2
-    # iterate from beginning of array
-    # find the last element which is smaller than the last seen max from
-    # its left side and mark it as end
-    for i in range(len(nums)):
-        max_num = max(max_num, nums[i])
-        if nums[i] < max_num:
-            end = i
+        prev = nums[0]
+        end = 0
+		# find the largest index not in place
+        for i in range(0, len(nums)):
+            if nums[i] < prev:
+                end = i
+            else:
+                prev = nums[i]
 
-    min_num = float('inf')
-    begin = -1
-    # iterate from end of array
-    # find the last element which is bigger than the last seen min from
-    # its right side and mark it as begin
-    for i in range(len(nums) - 1, -1, -1):
-        min_num = min(min_num, nums[i])
-        if nums[i] > min_num:
-            begin = i
-
-    return [begin, end]
+        start = len(nums) - 1
+        prev = nums[start]
+		# find the smallest index not in place
+        for i in range(len(nums)-1, -1, -1):
+            if prev < nums[i]:
+                start = i
+            else:
+                prev = nums[i]
+        if end != 0:
+            return end - start + 1
+        else:
+            return 0
