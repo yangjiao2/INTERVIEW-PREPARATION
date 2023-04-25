@@ -45,3 +45,35 @@ Cons:
 
 
 
+https://www.greatfrontend.com/questions/system-design/news-feed-facebook 
+
+## Virtualized Lists
+replaces the contents of off-screen feed posts with empty <div>s
+add hidden
+
+## shimmer loading effect
+
+## pagination: cursor-based pagination
+
+customizing the number of posts to load based on the browser window height.
+
+## Hashtags, Mentions: Custom synta
+
+string can be parsed for hashtags and mentions using ~regex~ and replaced with custom-styled links.
+
+
+## Image loading
+- `srcset` if there are image processing (resizing) capabilities
+- Adaptive on  internet connectivity
+
+
+## Optimistic Updates
+
+## icon
+Inlined SVG	Scalable and crisp
+
+## Accessibility
+
+`role="feed"`
+`role="article"`
+`tabindex="0"`

@@ -13,16 +13,14 @@ Task scheduler变种
  而二期 琪琪儿
  1498
 
-Netflix recommendation system
+1) Netflix recommendation system
 
 实现一个消息队列，多个消息源，多个消费线程；类似kafka
 
 
 实现记住视频上次看到哪了
 
- Uber's backend
-
- Design Snap， 300M daily active users 需要有能够发text，photo和 video的功能:
+2) Design Snap， 300M daily active users 需要有能够发text，photo和 video的功能:
 我先给他定义好了，每天大概需要多少storage去存 这些contents。
 提到了这个系统需要的non-functional requirements： availability, reliability, scalability
 画了building blocks，从user requests 到databases
@@ -30,8 +28,13 @@ Netflix recommendation system
 问了我如何处理group chat存储的问题 - messaging queue， kafka
 
 
-3) System Design - shorten url
-4) System Design - push notification system
+
+3) Uber's backend
+
+
+
+4) System Design - shorten url
+5) System Design - push notification system
 
 
 Ins story

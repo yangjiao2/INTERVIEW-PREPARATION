@@ -1,4 +1,6 @@
 
+Write Throughput = 1 billion/86400 = 10K hashtags per second
+
 calculation example:
 1. write: individual content size * amount of contnet
 

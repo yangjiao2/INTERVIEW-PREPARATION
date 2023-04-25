@@ -70,3 +70,11 @@ Low Latency: time-sensitive
 
 High Observability: detailed and historical item-level
 - processing details are passed on to a Kafka layer
+
+
+
+https://towardsdatascience.com/ace-the-system-design-interview-uber-lyft-7e4c212734b3
+
+
+
+https://leetcode.com/discuss/interview-question/1064199/uber-front-end-phone-screen-reject

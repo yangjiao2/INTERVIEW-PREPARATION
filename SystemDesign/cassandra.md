@@ -53,3 +53,31 @@ Given Write CL = QUORUM and Read CL = QUORUM
 1) If RF = 3, W = QUORUM or LOCAL_QUORUM, R = QUORUM or LOCAL_QUORUM, then W (2) + R (2) > RF (3)
 
 2) If RF = 3, W = ALL, R = ONE, then W (3) + R (1) > RF (3)
+
+
+https://www.baeldung.com/cassandra-keys
+## keys
+
+
+- `>= 1` partition keys - data distribution across nodes
+- `>= 0` clustering key components - data sorting within the partition
+
+((primary keys) parition keys)
+
+keys1:keys2 are stored among nodes
+cluster keys are for sorting
+
+
+WHERE clause:
+- define at least all primary keys
+- only can query `=` equal
+
+WITH CLUSTERING ORDER BY:
+- (partition_key1 ASC, partition_key2 DESC)
+
+in order of clustering keys setting 依照key definition 的次序
+
+Last option for Override: Allow Filtering
+- no partition key
+- partition key with `!=`
+- preceding clustering keys has `!=`
