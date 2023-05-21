@@ -1,1 +1,0 @@
-https://www.infoq.com/presentations/pinterest/
