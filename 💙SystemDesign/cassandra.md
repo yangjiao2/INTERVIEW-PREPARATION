@@ -81,3 +81,13 @@ Last option for Override: Allow Filtering
 - no partition key
 - partition key with `!=`
 - preceding clustering keys has `!=`
+
+https://www.baeldung.com/cassandra-secondary-indexes
+## secondary index
+
+*  Regular Secondary Index 
+when executing a search query using the secondary index, Cassandra reads the indexed data from every node and collects all the results. If our cluster has many nodes, this can lead to increased data transfer and high latency.
+
+
+* SSTable-Attached Secondary Index (SASI)
+The advantages of SASI are the tokenized text search, fast range scans, and in-memory indexing. On the other hand, a disadvantage is that it generates big index files, especially when enabling text tokenization.
