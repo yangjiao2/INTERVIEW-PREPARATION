@@ -1,7 +1,19 @@
 [link](https://aws.plainenglish.io/apache-kafka-system-architecture-cc74e7d47904)
 
-Kafka: distributed, publish/subscribe messaging system, high throughput `100k per second` & low latency `(ms)`
+## Kafka: distributed, publish/subscribe messaging system, high throughput `100k per second` & low latency `(ms)`
 
+- de-couple
+- handle burst traffic
+- different speed request for produce vs. ack message
+- ordering (within partition)
+- persist (if needed) then delete
+  
+
+
+## method
+
+- 1 to 1: process by consumer and delete
+- 1 to many: publish to topic, consume by multiple consumer with offset stored in kafka server
 
 ## features
 
@@ -24,10 +36,10 @@ Kafka only provides a ***total order*** over messages within a partition, ***not
 
 in other words,
 
-Due to parition (within a topic): For a consumer, messages coming from a partition would always be in order but ordering of messages coming from a topic is not guaranteed.
+Due to partition (within a topic): For a consumer, messages coming from a partition would always be in order but ordering of messages coming from a topic is not guaranteed.
 
 
-## funtions
+## functions
 
 1) publish message + subscription message
 
@@ -112,3 +124,12 @@ kafka:
 * persistent - messages are immediately written to the filesystem when they are received.
 * high throughput - 2 m qps, Kafka topic is just a sharded write-ahead log. Producers append records to these logs
 * durability: central queue for consumers, space-efficient, buffer TBs of unconsumed data
+
+
+
+---
+
+exactly-once semantics in Kafka:
+
+enable idempotent producer and transactional feature on the producer by setting the unique value for “transaction.id” for each producer
+enable transaction feature at the consumer by setting property “isolation.level” to value “read_committed“

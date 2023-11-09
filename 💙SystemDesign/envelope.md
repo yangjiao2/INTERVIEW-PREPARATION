@@ -1,3 +1,7 @@
+size
+
+The minimum size for char is 8 bits, the minimum size for short and int is 16 bits, for long it is 32 bits
+
 
 Write Throughput = 1 billion/86400 = 10K hashtags per second
 
@@ -23,7 +27,7 @@ calculation example:
 ### server:
 
 300ms QPS (8 core)
-32 gb memory
+32 - 144 gb memory
 50k concurrent request
 1 TB = 100 GB HDD
 

@@ -23,12 +23,15 @@ availability(logical independence), scalability, security (store data in differe
 
 ## Limitations
 
-- Avoidance of cross-shard joins: inner-joins that span multiple shards
+- Avoidance of cross-shard joins: inner-joins that span multiple shards, some aggregations not possible 
 
 - Auto-increment key management
 
 - reliability: 
--> to solve: at least 2 “live” copies of each shard 
+-> to solve: at least 2 “live” copies of each shard
+
+- key choices: 
+-> avoid data skew and hot loading
 
 ## Strategies
 
