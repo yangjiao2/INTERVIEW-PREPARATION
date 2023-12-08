@@ -1,8 +1,13 @@
-deally, talk about how you used that lesson to get a different outcome next time you were presented with a similar challenge (e.g. how you turned a past failure into a future success)
 
+- don't blame other
+- explain how I have the ownership to fix it
 
-“In my most recent position, I had recently been promoted to Supervisor and was managing the department by myself right before the close of business. An employee was acting out and I confronted him in front of everybody. It made the situation worse and caused a lot of distraction for everyone on the floor. I failed to lead properly in this situation, and spoke to my manager the next day to discuss what I could have done better. We both agreed that I should have handled this privately with the employee by asking them to step inside my office. If I had done this instead of reacting the way I did, the situation would have turned out much better. From that point onward, I am always conscious of whether a discussion with a team member should occur in public or behind closed doors, and it made me a better leader.”
+---  list out all available options and then weigh the pros and cons 
+---  weigh the risks of each possible decision. 
 
+- changes I did 
+
+ideally, talk about how you used that lesson to get a different outcome next time you were presented with a similar challenge (e.g. how you turned a past failure into a future success)
 
 
 > “I typically list out all available options and then weigh the pros and cons and expected outcomes of each. If other teams or people are impacted by the decision, I’ll ask for their thoughts, too. Sometimes a peer will point out a pro or con that I hadn’t seen, so I find it helpful to talk to others when appropriate. After this, I’ll choose the course of action that I feel is most likely to bring about the best outcome. I also weigh the risks of each possible decision. If one decision has a good potential outcome but comes with too much risk for the company, then it may not be the right choice. Would you like me to give an example? Or did that answer your question…”

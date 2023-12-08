@@ -173,4 +173,6 @@ if __name__ == "__main__":
     subject.some_business_logic()
 
     subject.detach(observer_a)
+
+    
 ```

@@ -40,79 +40,235 @@ const playersWithGoodScores = await players.filter(async (player) => {
 });
 It might look like that should work but it won't, because filter was never designed with promises in mind. When filter calls your callback function, it will get a Promise back, but instead of awaiting that promise, it will just see the promise as "truthy", and immediately accept the player, regardless of what their score will eventually be.
 
+function testPromise(time) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log(`Processing ${time}`);
+      resolve(time);
+    }, time);
+  });
+}
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8];
-const randomDelay = () => new Promise(resolve => setTimeout(resolve, Math.random() * 1000));
+/*
+  For of loop: unpack items from array and execute async function in input order with main thread blocking for each.
+  This is conceptually same as Array.reduce (which listed down below).
+*/
 
-const calc = async n => {
-  await randomDelay(); 
-  console.log('n', n); // out of order
-  return n * 2;
-};
+let timeouts = [3000, 2000, 1000, 4000];
+let results = [];
+const start = Date.now();
 
-const asyncFunc = async () => {
-  const p = arr.map(n => calc(n));
-  const results = await Promise.all(p);
-  console.log(results);
-};
+// Define an async function to use await inside the loop
+async function processTimeouts() {
+  for (const nextTimeout of timeouts) {
+    try { 
+      // Use await inside the loop to wait for each promise to resolve
+      const result = await testPromise(nextTimeout); logger(result, Date.now() - start);
+      results.push(result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
-asyncFunc();
-[2,4,6,8,10,12,14,16]
+  // Log the results and total time after all promises are resolved
+  logger(results, Date.now() - start);
+  console.log("All Promises Resolved !!✨", results);
+}
+
+processTimeouts()
+
+
+/*
+  Result output:
+
+Processing 3000
+3000 finished waiting 3 seconds later.
+Processing 2000
+2000 finished waiting 5 seconds later.
+Processing 1000
+1000 finished waiting 6 seconds later.
+Processing 4000
+4000 finished waiting 10 seconds later.
+3000,2000,1000,4000 finished waiting 10 seconds later.
+All Promises Resolved !!✨ (4) [3000, 2000, 1000, 4000]
+*/
 
 
 
-const fruitsToGet = ['apple', 'grape', 'pear']
 
-const mapLoop = async () => {
-  console.log('Start')
+/*
+  For of loop + Promise.all: unpack items from array and execute simulataenously and 
+  result will be arranged in order👍.
+  This is conceptually same as Array.map (which listed in the next block.
+*/
 
-  const promises = await fruitsToGet.map(async fruit => {
-    const numFruit = new Promise((resolve, reject) => {
-      setTimeout(() => resolve(fruit), math.random() * 1000)
-    });
-    return numFruit
+let timeouts = [3000, 2000, 1000, 4000];
+let results = [];
+const start = Date.now();
+
+
+// Use for...of loop to iterate over timeouts and create promises
+for (const nextTimeout of timeouts) {
+  promises.push(testPromise(nextTimeout));
+}
+
+// Use Promise.all to wait for all promises to resolve
+Promise.all(promises)
+  .then((results) => {
+    logger(results, Date.now() - start);
+    console.log("All Promises Resolved !!✨", results);
   })
-  const numFruits = await Promise.all(promises)
-  console.log(numFruits)
+  .catch((error) => {
+    console.error("Error:", error);
+  });
 
-  console.log('End')
+/*
+  Result output:
+
+Processing 1000
+Processing 2000
+Processing 3000
+Processing 4000
+3000,2000,1000,4000 finished waiting 4 seconds later.
+All Promises Resolved !!✨ (4) [3000, 2000, 1000, 4000]
+*/ 
+
+
+
+/*
+  Array map: this maps async promises in an array and we can use Promise.all or Promise.allSettled to execute, which will also execute simulataenously and 
+  result will be arranged in order👍.
+
+*/
+
+let timeouts = [3000, 2000, 1000, 4000];
+let results = [];
+const start = Date.now();
+
+// Use array.map to create an array of promises
+let promises = timeouts.map((nextTimeout) => {
+  return testPromise(nextTimeout);
+});
+
+// Use Promise.all to wait for all promises to resolve
+Promise.all(promises)
+  .then((results) => {logger(results, Date.now() - start);
+    console.log("All Promises Resolved !!✨", results);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
+/*
+  Result output:
+
+Processing 1000
+Processing 2000
+Processing 3000
+Processing 4000
+All Promises Resolved !!✨ (4) [3000, 2000, 1000, 4000]
+*/ 
+
+
+/*
+  Array forEach: this execute the simultaneously (all starts together).
+  This will execute simultaneously and result returned is based on time required for execution (if using Array.push) 
+  Array for each definition: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+*/
+
+function testPromise(time) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log(`Processing ${time}`);
+      resolve(time);
+    }, time);
+  });
 }
 
-mapLoop(); // ["apple","grape","pear"]
+let timeouts = [3000, 2000, 1000, 4000];
+let results = [];
+const start = Date.now();
+
+timeouts.forEach((nextTimeout) => {
+  testPromise(nextTimeout)
+    .then((result) => {
+      logger(result, Date.now() - start);
+      results.push(result);
+    })
+    .catch((error) => {
+      console.error(`Error processing ${nextTimeout}:`, error);
+    });
+});
+
+// For simplicity, I'm logging the results after a delay
+setTimeout(() => {
+  console.log("All Promises Resolved !!✨", results);
+}, Math.max(...ids) + 1000); 
+
+/*
+  Result output:
+
+Processing 1000
+1000 finished waiting 1 seconds later.
+Processing 2000
+2000 finished waiting 2 seconds later.
+Processing 3000
+3000 finished waiting 3 seconds later.
+Processing 4000
+4000 finished waiting 4 seconds later.
+All Promises Resolved !!✨ (4) [1000, 2000, 3000, 4000]
+*/ 
 
 
 
-const forOfLoop = async () => {
-  console.log('Start ')
-
-  let promises = [];
-  for (const fruit of fruitsToGet) {
-    promises.push(new Promise((resolve, reject) => {
-      setTimeout(() => resolve(fruit), Math.random() * 1000)
-    }));
-  }
-  const numFruits = await Promise.all(promises)
-  console.log(numFruits)
-
-  console.log('End ')
+/*
+  Array Reduce: this execute the async promise one by one. 
+  We can derive result by using ".then" since it will have resolved result for each item in array;  
+  
+  Array reduce definition: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+*/
+function testPromise(time) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log(`Processing ${time}`);
+      resolve(time);
+    }, time);
+  });
 }
 
-forOfLoop();
+let timeouts = [3000, 2000, 1000, 4000];
+let results = [];
+const start = Date.now();
+let resultPromise = timeouts.reduce((accumulatorPromise, nextTimeout) => {
+  return accumulatorPromise.then(() => { 
+    return testPromise(nextTimeout);
+  }).then((result) => { 
+    logger(result, Date.now() - start);
+    results.push(result);
+  });
+}, Promise.resolve());
+
+resultPromise.then(() => {
+  console.log("All Promises Resolved !!✨", results);
+});
+
+/*
+>  Result output:
+  
+Processing 3000
+3000 finished waiting 3 seconds later.
+Processing 2000
+2000 finished waiting 5 seconds later.
+Processing 1000
+1000 finished waiting 6 seconds later.
+Processing 4000
+4000 finished waiting 10 seconds later.
+All Promises Resolved !!✨ (4) [3000, 2000, 1000, 4000]
+*/ 
 
 
-
-
-
-const emails = ['alice@gmail.com', 'bob@gmail.com', 'charlie@gmail.com'];
-const send = email =>
-  new Promise(resolve =>
-    setTimeout(() => resolve(email), 1000)
+function logger(value, diffInMS) {
+  return console.log(
+    `${value} finished waiting ${Math.round(diffInMS / 1000)} seconds later.`
   );
-const sendAllEmails = async () => {
-  for (email of emails) {
-    const emailInfo = await send(email);
-    console.log(`Mail sent to ${emailInfo}`);
-  }
-  console.log('All emails were sent');
 };
-sendAllEmails();
