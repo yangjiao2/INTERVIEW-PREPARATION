@@ -1445,21 +1445,107 @@ EOF
 API access control
 -  deploy stored in the cluster's data store (etcd) once the request is accepted 
 -  three layers of access control 
-Authentication: Requests sent to the API server are authenticated to prove the identity of the requester, be it a normal user or a service account, and are rejected otherwise.
-Authorization: The action specified in the request must be in the list of actions the authenticated user is allowed to perform or it is rejected.
-Admission Control: Authorized requests must then pass through all of the admission controllers configured in the cluster (excluding read-only requests) before any action is performed.
+1. Authentication: Requests sent to the API server are authenticated to prove the identity of the requester, be it a normal user or a service account, and are rejected otherwise.
+2. Authorization: The action specified in the request must be in the list of actions the authenticated user is allowed to perform or it is rejected.
+3. Admission Control: Authorized requests must then pass through all of the admission controllers configured in the cluster (excluding read-only requests) before any action is performed.
 
 
+##### 1. Authentication: 
 ```bash
 # Display the contents of the kubeconfig file:
 cat /home/ubuntu/.kube/config
 
 kubectl config --help
 
+#  CURRENT context
 kubectl config get-contexts
 
+```
+
+if we remove cert from `~/.kube/config` 
 
 ```
+grep "client-cert" ~/.kube/config | \
+  sed 's/\(.*client-certificate-data: \)\(.*\)/\2/' | \
+  base64 --decode \
+  > cert.pem
+openssl x509 -in cert.pem -text -noout
+```
+
+by checking 
+```bash
+kubectl describe pod nginx
+```
+```yml
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+```
+
+check on service token
+```bash
+kubectl exec nginx -- cat /var/run/secrets/kubernetes.io/serviceaccount/token && echo
+```
+
+
+#### 2. Authorization:
+RBAC, subjects (users, groups, ServiceAccounts) are bound to roles and the roles describe what actions the subject is allowed to perform. There are two kinds of roles in Kubernetes RBAC:
+- Role: A namespaced resource specifying allowed actions
+- ClusterRole: A non-namespaced resource specifying allowed actions. non-namespaced resources, such a Nodes.
+
+
+
+```bash
+# List the Roles in all Namespaces
+kubectl get roles --all-namespaces
+# Roles all have an associated Namespace
+
+```
+
+check rules for kube-proxy role
+```bash
+kubectl get -n kube-system role kube-proxy -o yaml
+
+# rules:
+# - apiGroups:
+#   - ""
+#   resourceNames:
+#   - kube-proxy
+#   resources:
+#   - configmaps
+#   verbs:
+#   - get
+```
+- verbs:
+read (get) access to ConfigMaps (configmaps) named kube-proxy. The verbs declare which HTTP verbs are allowed for requests. 
+- apiGroups:
+The Kubernetes API is organized into groups and the apiGroups list indicates which API group(s) the rule applies to. 
+The core API group which includes the most commonly used resources, including ConfigMaps, is denoted by an empty string ("").
+
+
+---
+
+get cluster-admin ClusterRole 
+```bash
+kubectl get clusterrole cluster-admin -o yaml
+# rules:
+# - apiGroups:
+#   - '*'
+#   resources:
+#   - '*'
+#   verbs:
+#   - '*'
+# - nonResourceURLs:
+#   - '*'
+#   verbs:
+#   - '*'
+
+```
+The RoleRef map specifies the name of the ClusterRole that is being bound, and the subjects map lists all the subjects (users, groups, or service accounts) that are bound to the ClusterRole. In this case, the ClusterRole is bound to a Group named system:masters. Because identities are managed outside of Kubernetes, you cannot use kubectl to show details of users or groups. However, recall that the client certificate used in the kubeconfig identifies the user as kubernetes-admin and the group as system:masters. Because the kubernetes-admin is in the system:masters group, the cluster-admin ClusterRole allows any request sent.
+
+
+
 
 
 #### Implement Common Deployment Strategies
@@ -1809,6 +1895,11 @@ kubectl get crds
 # enter the following to retrieve the Argo server initial password which is stored in a Secret:
 kubectl -n default get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
 
+
+# The names provide the supported names you can use to reference applications when using kubectl (singular, plural, and shortNames). 
+kubectl get crds applications.argoproj.io -o yaml | more | grep -C 15 spec:
+
+kubectl edit applications [APPLICATION_NAME]
 
 ```
 
