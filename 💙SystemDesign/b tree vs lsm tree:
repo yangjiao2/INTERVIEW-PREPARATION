@@ -1,0 +1,54 @@
+
+
+Write amplification is the ratio of the amount of data written to the storage device versus the amount of data written to the database.
+
+https://www.speedb.io/blog-posts/02-lsm-vs-b-tree-v2
+
+
+B-Tree
+B-trees (tranditional, mongodb)
+- reads and writes are evenly balanced, and data is accessed in small, random chunks
+- range queries
+- read-intensive 
+
+
+
+Pros of B-Tree:
+
+Excellent performance with read-intensive workloads 
+Mature structure (developed in the 1970s) used by many older storage engines
+‍
+
+Cons of B-Tree:
+
+Increased space overhead to deal with fragmentation
+Uses random writes which causes slower create/insert behavior 
+Concurrent writes may require locks which slows write performance 
+Scaling challenges, especially with >50% write transactions 
+
+
+
+
+
+LSM trees (cassandra)
+- writes are more common than reads, or when data is accessed in large sequential chunks.
+- uses an append-only write structure which makes it super-efficient for writes
+- compression and compaction help to keep data organized and reduce overall storage utilization
+- with bloom filters: Read/search performance can be optimized 
+
+Pros of LSM:
+
+More space efficient by using append-only writes and periodic compaction
+Better performance with fast-growing data and sequential writes
+No fragmentation penalty because of how SSTable files are written and updated
+‍
+
+Cons of LSM:
+
+CPU overhead for compaction can meaningfully affect performance and efficiency if not tuned appropriately
+More tuning options increase flexibility but can seem complex to developers and operators
+
+‍
+
+
+

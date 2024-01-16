@@ -1,3 +1,34 @@
+https://aphyr.com/posts/294-call-me-maybe-cassandra
+
+. However, it could just as easily have discarded the write from the right-hand client. Without a strong external coordinator, there’s just no way to tell whose data will be preserved, and whose will be thrown away.
+
+
+行锁（row-level lock） 来防止脏写
+
+
+
+---
+
+[Discord store messages](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbjVhY1h3bkV2cFBORW5OY2tjR2dwRG56YU5MZ3xBQ3Jtc0ttRHFCME5yRXJqWEFQTUhScDV6aUVpTlpmLWJlNHp2Ymo5WUZUUGtUam5pVmJNb3d0SWFMRmZRSWFfQXBiTXp0NGlzbnp0aDF5WC1EN3MxM0M3T1ZtSGJ0OHhzY24td1YzcUNPcklqZmtYUkxXYjVsYw&q=https%3A%2F%2Fdiscord.com%2Fblog%2Fhow-discord-stores-trillions-of-messages&v=xynXjChKkJc)
+
+
+Reads are more expensive than writes
+
+Mysql: *B+ tree* used, based on primary key, leaf pages contains records, range query
+
+For Unclustered index: Postgre used tuple (pageid), Mysql used primary key
+
+
+Write: 
+appended to a commit log, commit to a **memtable**, and eventually flush to a disk
+
+during read, need to query memtable (multiple SSTable) -> which potentially leads to a hot partition
+
+
+
+---
+
+
 
 [Uber](https://www.uber.com/blog/real-time-push-platform/)
 
@@ -5,20 +36,16 @@
 ## system
 
 
-Netty: Netty is a widely used and high performance library to build network servers and clients. Netty’s bytebuf allows zero-copy buffers that make the system very efficient.
+Redis & Apache Cassandra (replication & storage):
+- Cassandra is a durable and cross region replicated storage
+- Redis was used as a capacity cache on top of Cassandra to avoid thundering herd problems commonly associated with the sharded systems on deployments or failover events.
 
-Apache ZooKeeper:
-- a consistent hashing of network connections allows direct streaming of data without needing any storage layer in between
-- distributed synchronization and configuration management and can detect failures of connected nodes quickly.
 
 Apache Helix:
 -  a robust cluster management framework that works on top of ZooKeeper
 - allowing defining custom topologies and rebalancing algorithms
 - uses ZooKeeper for monitoring of connected workers and propagating sharding state information change
 
-Redis & Apache Cassandra (replication & storage):
-- Cassandra is a durable and cross region replicated storage
-- Redis was used as a capacity cache on top of Cassandra to avoid thundering herd problems commonly associated with the sharded systems on deployments or failover events.
 
 [Thundering Herds & Promises](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)
 
@@ -28,7 +55,7 @@ Redis & Apache Cassandra (replication & storage):
 
 ##  consistency
 
-- **NetworkToplogyStrategy**
+- **Network Toplogy Strategy**
 - no slave / server
 - eventually consistent thus all nodes across all datacenters sees the same state only after few seconds
 

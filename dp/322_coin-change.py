@@ -50,3 +50,20 @@ class Solution:
 
         ans = dp(amount)
         return ans if ans != math.inf else -1
+
+
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        n = len(coins)
+        coins.sort()
+        dp = [math.inf] * (amount+1)
+        dp[0] = 0
+        
+        for amnt in range(1, amount+1):
+            for coin in coins:
+                if amnt >= coin:
+                    dp[amnt] = min(dp[amnt], dp[amnt-coin] + 1)
+                else:
+                    break  # optimize a bit
+                    
+        return dp[amount] if dp[amount] != math.inf else -1

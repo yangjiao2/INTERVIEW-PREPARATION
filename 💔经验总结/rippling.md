@@ -1,3 +1,12 @@
+
+
+1. 给你个字典，里面是同义词，一对一的关系，例如a <->b, c <-> d. 再给你一个String 的array，每个string 存的都是一句话，单词用空格分开。例如["a x y", "b x y"]
+
+问把相同意思的string 放到一起。"a x y" 因为字典的同义词的缘故和"b x y"是等效的。所以这俩放在一起。返回一个nexted array[["a x y", "b x y"], ....其他的配对]
+2. Follow up, 字典不是一对一了，是多对多。例如a <-> b, a <-> c, a <-> d，e <-> a, f <-> b 。 做跟第一问同样的事情。返回[["a x y", "b x y", "c x y", "d x y", "e x y", "f x y"], ....其他的配对] 他们都是同义词。
+
+
+
 是地里提到的allocation Id的题目，感觉没有地里描述的那么复杂， get() 和 free() 实现 【1 to N】， 也没要求有多随机。
 第一问，就直接用queue （list），每次分配从尾部取最后一个移除出去，free就放回去，都是O（1）的操作
 第二问，告诉你boolean 是1bit，integer 是8 bit，如何improve space，同时提示可以sacrifice一些time complexity； 开一个size = N的数组，linear scan； space从O（8n）降到了O(n), get的time 从O（1）变成了O（N）

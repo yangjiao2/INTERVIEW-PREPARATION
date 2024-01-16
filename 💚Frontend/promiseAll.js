@@ -1,6 +1,69 @@
 // https://dmitripavlutin.com/promise-all/
 
 
+let results = []; // to be resolved array of values
+// return a promise
+return new Promise((resolve, reject) => {
+  // checking for [] array
+  if (promises.length === 0) {
+    resolve([]);
+  } else {
+    promises.forEach((promise, index) => {
+      if (promise instanceof Promise) {
+        promise.then((value) => {
+          results[index] = value;
+          if(results.length === promises.length) {
+            // to break the loop
+            resolve(results);
+          }
+        }).catch(function (error) {
+          reject(error);
+        });
+      } else {
+        // what if the array value is just a number
+        results[index] = promise;
+      }
+      if(results.length === promises.length) {
+        // to break the loop
+        resolve(results);
+      }
+    });
+  }
+});
+
+
+Promise.all = function promiseAllIterative(values) {
+    return new Promise((resolve, reject) => {
+       let results = [];
+       let completed = 0;
+       
+       values.forEach((value, index) => {
+            Promise.resolve(value).then(result => {
+                results[index] = result;
+                completed += 1;
+                
+                if (completed == values.length) {
+                    resolve(results);
+                }
+            }).catch(err => reject(err));
+       });
+    });
+}
+
+
+Promise.all = function promiseAllReduce(values) {
+    return values.reduce((accumulator, value) => {
+        return accumulator.then(results => {
+            return Promise.resolve(value).then(result => {
+                return [...results, result];
+            });
+        });
+    }, Promise.resolve([]));
+}
+
+
+
+
 // all success -> execute array filled with resolved value
 // order of array does not matter
 

@@ -47,7 +47,8 @@ const login = async event => {
 
 
 
-//   fetch() API by itself doesn't allow canceling programmatically a request. To stop a request at the desired time you need additionally an abort controller.
+//   fetch() API by itself doesn't allow canceling programmatically a request. 
+// To stop a request at the desired time you need additionally an abort controller.
 
 The following fetchWithTimeout() is an improved version of fetch() that creates requests with a configurable timeout:
 

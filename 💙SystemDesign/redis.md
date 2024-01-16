@@ -1,3 +1,6 @@
+![](./pics/redis%20vs%20mem.png)
+![](./pics/redis6.0.png)
+
 With a Redis set, you can add, remove, and test for existence O(1) time (in other words, regardless of the number of set elements). For more information, see:
 
 [link](https://redis.io/docs/management/persistence/)

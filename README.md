@@ -16,7 +16,7 @@ system-design]()
 
 
 
-## 模版
+## Patterns
 
 ---
 
@@ -25,6 +25,73 @@ Monotonic Queue
 
 
 ```
+
+Tree preoder 
+```py
+
+while root or len(stack) != 0:
+    while root:
+        stack.push(root)
+        root == root.left
+    
+    root = stack.pop()
+    # extra checks
+    # e.g: pre and pre.value > root.value
+    pre = root
+    root = root.right
+
+
+```
+
+Tree level order traversal
+```py
+q = deque()
+while q:
+    size = len(q)
+    level = []
+
+    for i, node in enumerate(q):
+        level += node,
+        if node.left: q += node.left
+        if node.right: q += node.right
+
+    res += level
+
+```
+
+in order traversal
+
+```py
+    def inorderTraversal(self, root):
+        result = []
+        stack = []
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
+            result.append(root.val)
+            root = root.right
+
+        return result
+
+
+```
+
+max depth
+
+```py
+   def maxDepth(self, root):
+        if root is None:
+            return 0
+        if root.left is None:
+            return 1 + self.maxDepth(root.right)
+        if root.right is None:
+            return 1 + self.maxDepth(root.left)
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+
+```
+
 
 
 

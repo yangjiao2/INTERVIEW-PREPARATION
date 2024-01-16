@@ -730,6 +730,7 @@ kubectl cp webserver-logs:conf/httpd.conf local-copy-of-httpd.conf
 ... --output table | tr -d \|
 
 # resource usage
+
 kubectl top pods -n kube-system
 kubectl top pod -n kube-system --containers  #  NAME column refers to container names.
 kubectl top pod -n kube-system --containers -l k8s-app=kube-dns
@@ -1443,6 +1444,10 @@ EOF
 ```
 
 API access control
+
+
+## Deploy a Stateless Application in a Kubernetes Cluster
+=======
 -  deploy stored in the cluster's data store (etcd) once the request is accepted 
 -  three layers of access control 
 1. Authentication: Requests sent to the API server are authenticated to prove the identity of the requester, be it a normal user or a service account, and are rejected otherwise.
@@ -1640,6 +1645,7 @@ Enable autocompletion for the Kubernetes
 
 #### Taints & Tolerations
 
+
 Taints
 - apply to nodes
 - repel pods
@@ -1782,9 +1788,9 @@ last-applied-annotation: 3 way diff to apply desired update
 
 ## Stateful applications are applications that have a memory of what happened in the past.     
 
--  ConfigMaps: A type of Kubernetes resource that is used to decouple configuration arti/facts from image content to keep containerized applications portable. The configuration data is stored as key-v            alue pairs.
 
- 
+ConfigMaps: A type of Kubernetes resource that is used to decouple configuration arti/facts from image content to keep containerized applications portable. The configuration data is stored as key-v            alue pairs.
+
 - Headless Service: A headless service is a Kubernetes service resource that won't load balance behind a single service IP. Instead, a headless service returns a list of DNS records that point directly to the pods that back the service. A headless service is defined by declaring the clusterIP property in a service spec and setting the value to None. StatefulSets currently require a headless service to identify pods in the cluster network.
 
 
@@ -1875,7 +1881,11 @@ After a minute, describe the mysql-read service to find the DNS name of the exte
 
 Use the external load balancer to send some read requests to the cluster:
 
+
+```
+
 ```bash
+
 load_balancer=$(kubectl get services mysql-read -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 kubectl run mysql-client-loop --image=mysql:5.7 -i -t --rm --restart=Never --\
   bash -ic "while sleep 1; do /usr/bin/mysql -h $load_balancer -e 'SELECT @@server_id'; done"
@@ -1902,6 +1912,7 @@ kubectl get crds applications.argoproj.io -o yaml | more | grep -C 15 spec:
 kubectl edit applications [APPLICATION_NAME]
 
 ```
+
 
 ### Cluster
 

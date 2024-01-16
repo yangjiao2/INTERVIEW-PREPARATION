@@ -150,3 +150,90 @@ API如何向后兼容
 数据库 API的设计。讨论了很多backward compatible， support new/old/different versions of clients。 这轮知识比较comfortable，答得也还行，positive。
 - product design formula
 有想到AST啊什么的， 但是我并不是很懂，只知道概念。后面问了些security相关的概念，问到我的盲区了。feedback是mixed，不够strong，有知识但是对于com‍‍‌‌‌‍‌‍‍‍‍‌‌‍‍‍‌plex的问题和security的考虑不够。
+
+
+
+
+
+
+class ModifiableSetIterator:
+    def __init__(self, container):
+        self.container = container
+        self.index = 0
+
+    def __next__(self):
+        if self.index < len(self.container):
+            self.index += 1
+            return self.container[self.index - 1]
+        raise StopIteration
+
+    def set_value(self, value):
+        if 0 <= self.index < len(self.container):
+            self.container[self.index] = value
+
+    def erase_value(self):
+        if 0 <= self.index < len(self.container):
+            del self.container[self.index]
+            self.index = max(0, self.index - 1)
+
+
+class ModifiableSet:
+    def __init__(self):
+        self.data = []
+    
+    def __iter__(self):
+        return ModifiableSetIterator(self.data)
+    
+    def add(self, value):
+        if value not in self.data:
+            self.data.append(value)
+    
+    def __contains__(self, value):
+        return value in self.data
+    
+    def __len__(self):
+        return len(self.data)
+    
+    def __str__(self):
+        return str(self.data)
+
+
+# Example usage
+s = ModifiableSet()
+s.add(10)
+s.add(20)
+s.add(30)
+
+print("Original set:", s)
+
+iterator = iter(s)
+next(iterator)  # Points to 10
+iterator.set_value(15)
+next(iterator)  # Points to 20
+
+print("Set after modifying value:", s)
+
+iterator.erase_value()
+
+print("Set after erasing value:", s)
+
+
+
+
+
+
+
+
+
+import bisect
+ 
+li = [1, 3, 4, 4, 4, 6, 7]
+ 
+# using bisect() to find index to insert new element
+# returns 5 ( right most possible index )
+print ("Rightmost index to insert, so list remains sorted is : ",
+       end="")
+print (bisect.bisect(li, 4))
+assert bisect.bisect(li, 4) == 5, 'bisect test with test case: {input}'.format(input= [4])
+
+
