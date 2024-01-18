@@ -21,6 +21,9 @@ echo 'source <(helm completion bash)' >> ~/.bash_profile
 alias k=kubectl
 alias kg="k get"
 
+## context
+kubectl config use-context challenge-context
+
 ```
 editor:
 tmux
