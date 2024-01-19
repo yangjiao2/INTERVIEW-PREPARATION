@@ -58,6 +58,11 @@ k expose deployment web-server --type=LoadBalancer --port=80
 service_ip=$(kubectl get service web -o jsonpath='{.spec.clusterIP}')
 # Use curl to send an HTTP request to the service
 curl $service_ip
+
+
+# check env
+k exec -n config [pod_name] -- env
+
 ```
 
 
@@ -190,25 +195,50 @@ k create configmap app-config --from-literal=DB_NAME=testdb \
 kubectl create secret generic app-secret --from-literal=password=123457
 ```
 
+configmap
+```yml
+kind: ConfigMap
+data:
+  config: | # YAML for multi-line string
+    # Redis config file
+    tcp-keepalive 240
+    maxmemory 1mb
+```
+
 cm on pod:
 ```yml
-  volumes:
-  - name: config
-    # Declare the configMap to use for the volume
-    configMap:
-      name: app-config
-
+      containers:
+      - name: redis
+        image: redis:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 6379
+            name: redis
+        livenessProbe:
+          tcpSocket:
+            port: redis # named port
+          initialDelaySeconds: 15
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+        command:
+          - redis-server
+          - /etc/redis/redis.conf
 
         volumeMounts:
-          - mountPath: /etc/redis
+          - mountPath: /etc/redis 
+            # so the full path of volume will be `/etc/redis/redis.conf`
             name: config
       volumes:
         - name: config
           configMap:
             name: redis-config
             items:
-            - key: config
-              path: redis.conf
+            - key: config # key in configMap manifest
+              path: redis.conf # relative path of the mounting point
 ```
 
 secret on pod:
@@ -389,6 +419,78 @@ k rollout undo deployment [deployment_names]
 ### init containers
 
 run in order of declaration
+
+
+### probes
+
+
+### security context
+
+- set access control
+- examples:
+The user ID and group IDs of the first process running in a container
+
+The group ID of volumes
+
+If a container's root file system is read-only
+
+Security Enhanced Linux (SELinux) options
+
+The privileged status of containers, which allows the container to do almost everything root can do on the host, if enabled
+
+Whether or not privilege escalation, where child processes can have more privileges than their parent, is allowed
+
+
+To get priviledge
+```yml
+kind: Pod
+spec:
+  containers:
+  - image: busybox
+    name: busybox
+    args:
+    - sleep
+    - "3600"
+    securityContext:
+      privileged: true
+
+```
+
+To avoid root access (on container)
+
+```yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-test-3
+  namespace: test
+spec:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+  containers:
+  - image: busybox
+    name: busybox
+    args:
+    - sleep
+    - "3600"
+    securityContext:
+      runAsUser: 2000
+      readOnlyRootFilesystem: true
+```
+
+To avoid the potential downfalls of privileged containers, there are several best practices including:
+
+Avoid using **privileged** containers, and ensure any third-party Kuberentes templates you use do not stealthily grant privileged access
+Use RBAC to prevent users and service accounts from using exec or attach (the relevant RBAC resources are pod/exec and pod/attach)
+Use a trusted image registry
+**Enable PodSecurityPolicies** to enforce all containers running in unprivileged mode
+Do not run containers as the root user (the following instructions illustrate this)
+
+
+
+
 
 ### other
 editor:
