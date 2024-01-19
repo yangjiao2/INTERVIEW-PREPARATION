@@ -268,7 +268,7 @@ spec:
 
 
 - environment variables
-    - injected in container
+    - injected in container (automatically)
     - for environment variable to be set, service name should be not up to enable to be found (e.g, data tier, app tier depends on query data tier below)
     - if service is in the same namespace, e.g: service-name.service-namespace:port
 - DNS
@@ -681,6 +681,14 @@ Containers that exceed their memory request may be evicted when the node runs ou
 Containers that exceed their CPU limits may be allowed to exceed the limit depending on the other Pods on the node. Containers will not be terminated for exceeding CPU limits.
 ### Deployment
 
+The Deployment spec includes:
+
+- `replicas` that let you specify how many copies of the Pod you want the Deployment to create
+
+- `selector`, which is a Pod label selector that allows the Deployment controller to track the status of all the Pods in the Deployment. This is one example of how Kubernetes uses selectors. The matchLabels mapping defines an equality condition similar to how you would write app=web-server using kubectl. For more information about the Deployment selector issue kubectl explain deployment.spec.selector.
+
+- `template` is a template for the Pods that will be created. The template provides the desired behavior of each Pod and is essentially the same as an individual Pod manifest. Notice the label that the Deployment selector uses is applied to the Pod (app: web-server). This is required for the Deployment to track its Pods.
+
 ```bash
 
 # Create namespace
@@ -872,6 +880,7 @@ spec:
             path: /probe/readiness
             port: server
           initialDelaySeconds: 3
+          periodSeconds: 3
       initContainers: 
         - name: await-redis
           image: lrakai/microservices:server-v1
@@ -1778,12 +1787,49 @@ last-applied-annotation: 3 way diff to apply desired update
 
 ### Networking
 - Type: ClusterIP, NodePort, LoadBalance
-- Ingress
+- Ingress & Egress rules
+- for multiple policies, rules applied seperately (OR)
+- apply to newly created connection, not existing one
+
+Cluster IP: reachable within cluster
+
+NodePort: port open to every node in the cluster
+
+LoadBalance: create a cluster IP and node port
+
+External name: enable by DNS, CNAME for outside
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-us-east
+  namespace: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: server # if no pod selector, it will apply to all pods
+    policyTypes:
+    - Ingress
+    - Egress
+    ingress:
+    - from:
+      # supports podSelector, namespace Selector, and ipBlock
+      - podSelector:
+        matchLabels:
+          region: us-east
+        posts: # if not present, allow all ports
+        - protocol: TCP
+          port: 8888
+    egress:
+    - to: # allow all traffic if not specificed
+      - ipBlock:
+        cidr: 0.0.0.0/0 # all allow
+        except:
+        - 192.168.132.72/32
 
 
-
-
-
+```
 
 
 ## Stateful applications are applications that have a memory of what happened in the past.     
@@ -2387,7 +2433,8 @@ A best practice is to use volumes to mount any files that require modification, 
 - providing Pods with an identity in the cluster
 - authenticate using ServiceAccounts and gain access to APIs that the ServiceAccount has been granted
 - role-based access control (RBAC)
-- each namespace a default ServiceAccount. 
+- each namespace has a default ServiceAccount
+- use case: servce accounts with image pull secrets with private container registires 
 
 `pod -o yaml | more | grep serviceAccount`
 ```
